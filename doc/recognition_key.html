@@ -1,0 +1,73 @@
+<h4>Source</h4>
+<p>
+    These recognition results come from the Stock Symbol Document Collection.
+</p>
+
+<h4>Fields</h4>
+<p>
+  Each recognition result has the following fields:
+</p>
+
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+        <th>Property Name</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>symbol</td>
+        <td>String</td>
+        <td>The stock symbol</td>
+    </tr>
+    <tr>
+        <td>companyName</td>
+        <td>String</td>
+        <td>The name of the company, in English</td>
+    </tr>
+    <tr>
+        <td>exchange</td>
+        <td>String</td>
+        <td>The stock exchange the symbol is listed on</td>
+    </tr>
+    <tr>
+        <td>marketCap</td>
+        <td>Number</td>
+        <td>The market capitalization, on July 16th, 2014, in dollars</td>
+    </tr>
+    <tr>
+        <td>ipoYear</td>
+        <td>Number</td>
+        <td>The year of the company's IPO</td>
+    </tr>
+    <tr>
+        <td>industry</td>
+        <td>String</td>
+        <td>The industry the company belongs to</td>
+    </tr>
+    <tr>
+        <td>sector</td>
+        <td>String</td>
+        <td>The sector the company belongs to</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Example</h4>
+<pre>
+{
+  &quot;com.solveforall.recognition.finance.stocks.StockSymbol&quot;: [
+    {
+      &quot;symbol&quot;:  &quot;YHOO&quot;,
+      &quot;companyName&quot;: &quot;Yahoo! Inc.&quot;,
+      &quot;exchange&quot;: &quot;NASDAQ&quot;,
+      &quot;marketCap&quot;: 34020046847.86,
+      &quot;ipoYear&quot;: 1996,
+      &quot;industry&quot;: &quot;EDP Services&quot;,
+      &quot;sector&quot;: &quot;Technology&quot;
+    }
+  ]
+}
+</pre>
