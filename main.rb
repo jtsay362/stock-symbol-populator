@@ -62,22 +62,23 @@ class StockSymbolPopulator
       "properties" : {
         "exchange" : {
           "type" : "string",
-          "index" : "exchange"
+          "index" : "no"
         },
         "symbol" : {
           "type" : "string",
-          "index" : "not_analyzed"
+          "index" : "analyzed",
+          "index_analyzer" : "simple"
         },
         "companyName" : {
           "type" : "string",
           "index" : "analyzed"
         },
         "marketCap" : {
-          "type" : "number",
+          "type" : "float",
           "index" : "no"
         },
         "ipoYear" : {
-          "type" : "number",
+          "type" : "integer",
           "index" : "no"
         },
         "sector" : {
