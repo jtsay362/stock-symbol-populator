@@ -1,4 +1,4 @@
-Creates a Document Collection Changefile for Solve for All based on stock symbols downloaded from NASDAQ.
+Creates a Semantic Data Collection Changefile for Solve for All based on stock symbols downloaded from NASDAQ.
 Populates stock symbols from the NASDAQ, NYSE, and AMEX exchanges.
 
 Running:
@@ -6,6 +6,6 @@ Running:
   bundle install
   ruby main.rb -d
 
-should produce a bzipped Document Collection Changefile: stocks.json.bz2 in the project directory.
+should produce a bzipped Semantic Data Collection Changefile: stocks.json.bz2 in the project directory.
 
-See https://solveforall.com/docs/developer/document_collection for more info.
+See https://solveforall.com/docs/developer/semantic_data_collection for more info.
