@@ -55,6 +55,24 @@ class StockSymbolPopulator
       out.write <<-eos
 {
   "metadata" : {
+    "settings" : {
+      "analysis": {
+        "char_filter" : {
+          "no_special" : {
+            "type" : "mapping",
+            "mappings" : ["^=>", "/=>", "$=>", ".=>", ":=>"]
+          }
+        },
+        "analyzer" : {
+          "lower_whitespace" : {
+            "type" : "custom",
+            "tokenizer": "whitespace",
+            "filter" : ["lowercase"],
+            "char_filter" : ["no_special"]
+          }
+        }
+      }
+    },
     "mapping" : {
       "_all" : {
         "enabled" : false
@@ -67,7 +85,7 @@ class StockSymbolPopulator
         "symbol" : {
           "type" : "string",
           "index" : "analyzed",
-          "index_analyzer" : "simple"
+          "analyzer" : "lower_whitespace"
         },
         "companyName" : {
           "type" : "string",
@@ -88,6 +106,11 @@ class StockSymbolPopulator
         "industry" : {
           "type" : "string",
           "index" : "no"
+        },
+        "suggest" : {
+          "type" : "completion",
+          "analyzer" : "lower_whitespace",
+          "payloads" : true
         }
       }
     }
@@ -113,7 +136,17 @@ class StockSymbolPopulator
 
     puts "Parsing file '#{file_path}' for exchange #{exchange} ..."
 
+
     CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+      #puts "row methods = " + row.methods.join(',')
+
+
+      row.to_h.each_key do |k|
+        if row[k]
+          row[k] = row[k].strip
+        end
+      end
+
       output_doc = {
         exchange: exchange,
         symbol: row[:symbol],
@@ -121,7 +154,14 @@ class StockSymbolPopulator
         marketCap: (row[:marketcap].to_f rescue nil),
         ipoYear: (row[:ipoyear].to_i rescue nil),
         sector: row[:sector],
-        industry: row[:industry]
+        industry: row[:industry],
+        suggest: {
+          input: [row[:symbol], row[:name]],
+          output: row[:symbol],
+          payload: {
+            desc: row[:symbol] + ': ' + row[:name]
+          }
+        }
       }
 
       if @first_document
@@ -136,7 +176,7 @@ class StockSymbolPopulator
       @num_symbols_found += 1
     end
 
-    puts "Done parsing file for exchange {exchange}."
+    puts "Done parsing file for exchange #{exchange}."
   end
 end
 
